@@ -2,10 +2,17 @@
 $servername = "localhost";
 
 session_start();
+$url = $_GET["url"];
+
 if ((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true)) {
     header("location: http://" . $servername . "/PHP_Project/login/login.php");
     exit;
 }
+
+if (is_null($url) || strlen($url)==0 ){
+    header("location: http://" . $servername . "/PHP_Project/textInput/sendurl.php");
+}
+
 ?>
 
 
@@ -42,7 +49,7 @@ if ((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true)) {
     <section class="chatbox">
         <section class="chat-window">
 
-        <article class="msg-container msg-remote" id="msg-0">
+            <article class="msg-container msg-remote" id="msg-0">
                 <div class="msg-box">
                     <img class="user-img" id="user-0" src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro" />
                     <div class="flr">
@@ -61,7 +68,7 @@ if ((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true)) {
                     <div class="flr">
                         <div class="messages">
                             <p class="msg" id="msg-1">
-                            Loading..
+                                Loading..
                             </p>
                         </div>
                         <span class="timestamp"><span class="username">Name</span>&bull;<span class="posttime">Now</span></span>
@@ -98,11 +105,11 @@ if ((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true)) {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
-
         setInterval(messageCheck, 1000);
+
         function messageCheck() {
             $.post("http://localhost/PHP_Project/dispmsg.php", {
-                    url: "www.google.com"
+                    url: "<?php echo $url ?>"
                 },
                 function(data, status) {
                     document.getElementsByClassName('chat-window')[0].innerHTML = data;
@@ -131,7 +138,8 @@ if ((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true)) {
                 var clientmsg = $("#msgTextBox").val();
                 $.post("http://localhost/PHP_Project/send.php", {
                         text: clientmsg,
-                        email: "<?php echo $_SESSION['email'] ?>"
+                        email: "<?php echo $_SESSION['email'] ?>",
+                        url: "<?php echo $url ?>"
                     },
                     function(data, status) {
                         document.getElementsByClassName('chat-window')[0].innerHTML = data;
@@ -141,14 +149,6 @@ if ((!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true)) {
                 return false;
 
             });
-
-            // $('#sendmsg').click(function() {
-            //     if (!$.trim($('#sendtxt').val())) {
-            //         alert("textbox value can't be empty");
-            //     } else {
-            //         $("#sendmsg").css("background", "rgba(38,113,255)");
-            //     }
-            // });
         });
     </script>
 </body>

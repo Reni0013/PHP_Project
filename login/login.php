@@ -1,8 +1,26 @@
 <?php
 include '/xampp/htdocs/PHP_Project/comp/_dbconnect.php';
 $server = "localhost";
-$isLogin = true;
+$isLogin = false;
 $showError = false;
+// $url = $_GET["url"];  // $_GET["url"] ( Url should assign via Google/Firefox extension )
+if(isset($_GET['url'])){
+	$url = $_GET['url']; 
+}else{
+	// $url is not set
+}
+
+
+
+session_start();
+if ((isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true)) {
+	header("location:http://" . $server . "/PHP_Project/home4/home.php?url=" . $url);
+	exit;
+}
+
+// if (!(is_null($url) || strlen($url)==0)){
+//     header("location: http://" . $servername . "/PHP_Project/textInput/sendurl.php");
+// }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	$email = $_POST['email'];
@@ -14,10 +32,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if ($userExists == 1) {
 		$isLogin = true;
-		session_start();
+
 		$_SESSION['loggedin'] = true;
 		$_SESSION['email'] = $email;
-		header("location:http://" . $server . "/PHP_Project/home4/home.php");
+
+		// echo '<script type="text/javascript">
+		// location.reload();
+		// </script>';
+		// if(strlen($_GET["url"]) == 0){
+		// 	echo "url unset";
+		// }
+		header("location:http://localhost/PHP_Project/steps.html");  //Put url of introduction page
 	} else {
 		echo '<div class="alert alert-danger alert-dismissible fade show custombg" role="alert">
 					<strong>Error! </strong> Credentials does not match
@@ -53,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 	a:link {
 		text-decoration: none;
 	}
+
 	a {
 		color: #8d448b;
 	}
