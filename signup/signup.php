@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/PHP_Project/comp/_dbconnect.php';
-$servername = "localhost";
+$servername = "localhost:90";
 $showAlert = false;
 $showError = false;
 $userExists = "";
@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                 $showAlert = true;
                 session_start();
                 $erro = "Your account is now created";
-                header("location: http://" . $server . "/PHP_Project/login/login.php");
+                header("location: http://" . $server . "/PHP_Project/login/index.php");
             }
         } else {
             $showError = true;
@@ -127,7 +127,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
                         </div>
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="http://localhost/PHP_Project/login/login.php" class="loginhere-link">Login here</a>
+                        Have already an account ? <a href="http://localhost:90/PHP_Project/login/index.php" class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>

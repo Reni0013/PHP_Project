@@ -1,12 +1,6 @@
 <?php
-$servername = "localhost";
-
+$servername = "localhost:90";
 ?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,34 +42,10 @@ $servername = "localhost";
                 // document.getElementById("myBtn").click();
                 console.log(txtBox.value)
                 // httpGet(txtBox.value)
-                location.href = "http://localhost/PHP_Project/home4/home.php?url=" + txtBox.value;
+                location.href = "http://localhost:90/PHP_Project/home/index.php?url=" + txtBox.value;
 
             }
         });
-
-        // function httpGet(theUrl) {
-        //     var xmlHttp = new XMLHttpRequest();
-        //     xmlHttp.open("GET", theUrl, false); // false for synchronous request
-        //     xmlHttp.send(theUrl);
-        //     return xmlHttp.responseText;
-        // }
-
-        // let request = new XMLHttpRequest();
-        // request.onreadystatechange = function() {
-        //     if (this.readyState === 4) {
-        //         if (this.status === 200) {
-        //             // document.body.className = 'ok';
-        //             console.log(this.responseText);
-        //         } else if (this.response == null && this.status === 0) {
-        //             // document.body.className = 'error offline';
-        //             console.log("The computer appears to be offline.");
-        //         } else {
-        //             // document.body.className = 'error';
-        //         }
-        //     }
-        // };
     </script>
-
 </body>
-
 </html>
